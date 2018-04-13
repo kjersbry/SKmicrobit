@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "uart.h"
+//#include "uart.h"
 
 #define GPIO ((NRF_GPIO_REGS*)0x50000000)
 
@@ -35,7 +35,7 @@ int main(){
 		}
 
 		if(!((GPIO->IN) & (0b1<<17))){
-			GPIO->OUTCLR=(ob111<<13);
+			GPIO->OUTCLR=(0b111<<13);
 		}
 
 		sleep = 10000;

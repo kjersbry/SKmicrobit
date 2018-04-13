@@ -18,7 +18,7 @@ typedef struct {
 	volatile uint32_t RXDRDY;
 	volatile uint32_t RESERVED2[4];
 	volatile uint32_t TXDRDY;
-	volatile uint32_t RESERVED3[1];
+	volatile uint32_t RESERVED3;
 	volatile uint32_t ERROR;
 	volatile uint32_t RESERVED4[7];
 	volatile uint32_t RXTO;
@@ -31,14 +31,14 @@ typedef struct {
 	volatile uint32_t ERRORSCR;
 	volatile uint32_t RESERVED7[31];
 	volatile uint32_t ENABLE;
-	volatile uint32_t RESERVED8[1];
+	volatile uint32_t RESERVED8;
 	volatile uint32_t PSELRTS;
 	volatile uint32_t PSELTXD;
 	volatile uint32_t PSELCTS;
 	volatile uint32_t PSELRXD;
 	volatile uint32_t RXD;
 	volatile uint32_t TXD;
-	volatile uint32_t RESERVED9[1];
+	volatile uint32_t RESERVED9;
 	volatile uint32_t BAUDRATE;
 	volatile uint32_t RESERVED10[17];
 	volatile uint32_t CONFIG;
@@ -58,7 +58,7 @@ void uart_init(){
 	UART->PSELRTS = 0xFFFFFFFF;
 	UART->PSELCTS = 0xFFFFFFFF;
 	//skrur på (enable)
-	UART->ENABLE = 0x4;
+	UART->ENABLE = 4;
 	//ta i mot meldinger
 	UART->STARTRX = 1;
 }
@@ -88,4 +88,16 @@ char uart_read(){
 		return '\0';
 	}
 
+}
+
+void send(){
+	if(!((GPIO->IN) & (0b1<<26))){
+		uart_send('A');
+			
+		
+	}
+
+	if(!((GPIO->IN) & (0b1<<17))){
+		uart_send('B');
+	}
 }
